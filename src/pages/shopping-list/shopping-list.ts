@@ -1,6 +1,8 @@
+import { Ingredient } from './../../models/ingredient';
+import { ShoppingListService } from './../../services/shopping-list.service';
 import { NgForm } from '@angular/forms/src/directives';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 
 
 @Component({
@@ -8,8 +10,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'shopping-list.html',
 })
 export class ShoppingListPage {
-  
+  //injecting service to get access to its functions
+  constructor(
+      private slService: ShoppingListService
+     ) {}
+
   onAddItem(form: NgForm) {
-    console.log(form);
+    // passing NgForm and it's values into function
+    this.slService.addItem(form.value.ingredientName, form.value.amount);
+    form.reset();
   }
 }
