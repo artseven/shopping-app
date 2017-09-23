@@ -1,4 +1,4 @@
-import { NavParams } from 'ionic-angular/es2015';
+import { NavParams } from 'ionic-angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditRecipePage implements OnInit {
   mode = 'New';
+  selectOptions = ['Easy', 'Medium', 'Hard'];
+
   constructor(private navParams: NavParams) {}
 
   ngOnInit() {
