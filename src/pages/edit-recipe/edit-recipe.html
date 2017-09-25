@@ -19,6 +19,7 @@
       <ion-item>
         <ion-label floating>Difficulty</ion-label>
         <ion-select>
+          <!-- binding to array values -->
           <ion-option *ngFor="let option of selectOptions" [value]="option">
             {{ option }}
           </ion-option>
