@@ -6,19 +6,22 @@
 
 
 <ion-content padding>
-  <form>
+  <!-- telling angular to use my own reactive form -->
+  <form [formGroup]="recipeForm">
     <ion-list>
       <ion-item>
         <ion-label floating>Title</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input 
+        type="text"
+        formControlName="title"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Description</ion-label>
-        <ion-textarea> </ion-textarea>
+        <ion-textarea formControlName="description"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label floating>Difficulty</ion-label>
-        <ion-select>
+        <ion-select formControlName="difficulty">
           <!-- binding to array values -->
           <ion-option *ngFor="let option of selectOptions" [value]="option">
             {{ option }}
