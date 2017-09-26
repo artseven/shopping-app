@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionSheetController, AlertController, NavParams } from 'ionic-angular';
 import { Component, OnInit } from '@angular/core';
 
@@ -72,6 +72,8 @@ export class EditRecipePage implements OnInit {
             if (data.name.trim() === '' || data.name == null) {
               console.log('WRONG!');
             }
+
+
           }
         }
       ]
@@ -81,7 +83,8 @@ export class EditRecipePage implements OnInit {
     this.recipeForm = new FormGroup({
       'title': new FormControl(null, Validators.required),
       'description': new FormControl(null, Validators.required),
-      'difficulty': new FormControl('Medium', Validators.required)
+      'difficulty': new FormControl('Medium', Validators.required),
+      'ingredients': new FormArray([])
     });
   }
 
