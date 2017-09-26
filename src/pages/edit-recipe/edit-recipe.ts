@@ -32,6 +32,7 @@ export class EditRecipePage implements OnInit {
         {
           text: 'Add Ingredient',
           handler: () => {
+            this.createNewIngredientAlert().present();
             
           }
         },
@@ -49,10 +50,12 @@ export class EditRecipePage implements OnInit {
         }
       ]
     });
+    
+    actionSheet.present();
   }
   
   private createNewIngredientAlert() {
-    const newIngredientAlert = this.alertController.create({
+    return this.alertController.create({
       title: 'Add Ingredient',
       inputs: [
         {
@@ -70,14 +73,16 @@ export class EditRecipePage implements OnInit {
           handler: data => {
             //matches first input name
             if (data.name.trim() === '' || data.name == null) {
-              console.log('WRONG!');
+              return;
             }
-
+            // to let angular know that it is of type FormArray
+            (<FormArray>this.recipeForm.get('ingredients'))
+             .push(new FormControl(data.name, Validators.required));
 
           }
         }
       ]
-    })
+    });
   }
   private initializeForm() {
     this.recipeForm = new FormGroup({
