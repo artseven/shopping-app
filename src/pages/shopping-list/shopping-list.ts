@@ -27,7 +27,7 @@ export class ShoppingListPage {
     form.reset();
     this.loadItems()
   }
-
+// changes
   onDeleteItem(index: number) {
     this.slService.removeItem(index);
     this.loadItems();
