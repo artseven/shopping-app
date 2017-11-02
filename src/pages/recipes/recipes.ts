@@ -25,7 +25,7 @@ export class RecipesPage {
     this.navCtrl.push(EditRecipePage, {mode: 'New'});
   }
 
-  onLoadRecipe(recipe:Recipe, index:number) {
+  onLoadRecipe(recipe: Recipe, index: number) {
     this.navCtrl.push(RecipePage, {recipe: recipe, index: index});
 
   }
