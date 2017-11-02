@@ -1,3 +1,4 @@
+import { RecipePage } from '../recipe/recipe';
 import { RecipesService } from './../../services/recipes.service';
 import { Recipe } from './../../models/recipe';
 import { EditRecipePage } from './../edit-recipe/edit-recipe';
@@ -24,7 +25,8 @@ export class RecipesPage {
     this.navCtrl.push(EditRecipePage, {mode: 'New'});
   }
 
-  onLoadRecipe() {
+  onLoadRecipe(recipe:Recipe, index:number) {
+    this.navCtrl.push(RecipePage, {recipe: recipe, index: index});
 
   }
 
