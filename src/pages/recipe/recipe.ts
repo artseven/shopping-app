@@ -1,3 +1,5 @@
+import { RecipesService } from '../../services/recipes.service';
+import { ShoppingListService } from '../../services/shopping-list.service';
 import { EditRecipePage } from '../edit-recipe/edit-recipe';
 import { Recipe } from '../../models/recipe';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +16,9 @@ export class RecipePage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    private slService: ShoppingListService,
+    private recipesService: RecipesService
   ) {  }
 
   ngOnInit() {
@@ -25,5 +29,16 @@ export class RecipePage implements OnInit {
   onEditRecipe() {
     this.navCtrl.push(EditRecipePage, {mode: 'Edit', recipe: this.recipe, index: this.index});
   }
+
+  onAddIngredients() {
+    this.slService.addItems(this.recipe.ingredients);
+  }
+
+  onDeleteRecipe() {
+    this.recipesService.removeRecipe(this.index);
+    this.navCtrl.popToRoot();
+  }
+
+
 
 }

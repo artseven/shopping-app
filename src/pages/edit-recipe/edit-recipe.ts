@@ -40,10 +40,14 @@ export class EditRecipePage implements OnInit {
         return {name: name, amount: 1}
       });
     }
-    this.recipesService.addRecipe(value.title, value.description, value.difficulty, value.ingredients);
+
+    if (this.mode == 'Edit') {
+      this.recipesService.updateRecipe(this.index, value.title, value.description, value.difficulty, value.ingredients)
+    } else {
+      this.recipesService.addRecipe(value.title, value.description, value.difficulty, value.ingredients);
+    }
     this.recipeForm.reset();
     this.navCtrl.popToRoot();
-
   }
 
   onManageIngredients() {
