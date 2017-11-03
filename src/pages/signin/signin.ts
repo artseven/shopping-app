@@ -27,7 +27,7 @@ export class SigninPage {
       .catch(error => {
         loading.dismiss();
         const alert = this.alertCtrl.create({
-          title: 'Signin failed!',
+          title: 'Sign In failed!',
           message: error.message,
           buttons: ['Ok']
         });
