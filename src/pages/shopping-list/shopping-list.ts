@@ -1,3 +1,4 @@
+import { AuthService } from '../../services/auth';
 import { SLOptionsPage } from './sl-options/sl-options';
 import { PopoverController } from 'ionic-angular';
 import { Ingredient } from './../../models/ingredient';
@@ -17,7 +18,8 @@ export class ShoppingListPage {
   //injecting service to get access to its functions
   constructor(
       private slService: ShoppingListService,
-      private popoverCtrl: PopoverController
+      private popoverCtrl: PopoverController,
+      private authSrv: AuthService
      ) {}
 
   ionViewWillEnter() {
@@ -39,6 +41,20 @@ export class ShoppingListPage {
   onShowOptions(event: MouseEvent) {
     const popover = this.popoverCtrl.create(SLOptionsPage);
     popover.present({ev: event});
+    popover.onDidDismiss(
+      data => {
+        if (data.action == 'load') {
+          this.authSrv.getActiveUser().getToken()
+            .then(
+              (token: string) => {
+                
+              }
+            );
+        } else {
+
+        }
+      }
+    )
   }
 
   private loadItems() {
