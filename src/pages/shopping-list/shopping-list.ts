@@ -44,14 +44,20 @@ export class ShoppingListPage {
     popover.onDidDismiss(
       data => {
         if (data.action == 'load') {
-          this.authSrv.getActiveUser().getToken()
-            .then(
-              (token: string) => {
-                
-              }
-            );
-        } else {
 
+        } else {
+          this.authSrv.getActiveUser().getIdToken()
+          .then(
+            (token: string) => {
+              this.slService.storeList(token)
+                .subscribe(
+                  ()=> console.log('Success!'),
+                  error => {
+                    console.log(error);
+                  }
+                )
+            }
+          );
         }
       }
     )
