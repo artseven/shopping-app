@@ -1,3 +1,4 @@
+import { SLOptionsPage } from '../pages/shopping-list/sl-options/sl-options';
 import { AuthService } from '../services/auth';
 import { SignupPage } from '../pages/signup/signup';
 import { SigninPage } from '../pages/signin/signin';
@@ -27,7 +28,8 @@ import { RecipesService } from './../services/recipes.service';
     ShoppingListPage,
     TabsPage,
     SigninPage,
-    SignupPage
+    SignupPage,
+    SLOptionsPage
 
   ],
   imports: [
@@ -43,7 +45,8 @@ import { RecipesService } from './../services/recipes.service';
     ShoppingListPage,
     TabsPage,
     SigninPage,
-    SignupPage
+    SignupPage,
+    SLOptionsPage
   ],
   providers: [
     StatusBar,
