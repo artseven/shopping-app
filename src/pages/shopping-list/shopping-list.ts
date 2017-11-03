@@ -44,7 +44,24 @@ export class ShoppingListPage {
     popover.onDidDismiss(
       data => {
         if (data.action == 'load') {
-
+          this.authSrv.getActiveUser().getIdToken()
+          .then(
+            (token: string) => {
+              this.slService.fetchList(token)
+                .subscribe(
+                  (list: Ingredient[])=> {
+                    if (list) {
+                      this.listItems = list;
+                    } else {
+                      this.listItems = [];
+                    }
+                  },
+                  error => {
+                    console.log(error);
+                  }
+                )
+            }
+          );
         } else {
           this.authSrv.getActiveUser().getIdToken()
           .then(
