@@ -47,8 +47,8 @@ export class ShoppingListPage {
     const popover = this.popoverCtrl.create(SLOptionsPage);
     popover.present({ev: event});
     popover.onDidDismiss(
-      data => {
-        if (data.action == 'load') {
+        data => {
+        if (data !== null && data.action == 'load') {
           loading.present();
           this.authSrv.getActiveUser().getIdToken()
           .then(

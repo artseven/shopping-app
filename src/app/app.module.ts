@@ -1,3 +1,4 @@
+import { RecipesOptionsPage } from '../pages/recipes/recipes-options/recipes-options';
 import { HttpModule } from '@angular/http';
 import { SLOptionsPage } from '../pages/shopping-list/sl-options/sl-options';
 import { AuthService } from '../services/auth';
@@ -30,7 +31,8 @@ import { RecipesService } from './../services/recipes.service';
     TabsPage,
     SigninPage,
     SignupPage,
-    SLOptionsPage
+    SLOptionsPage,
+    RecipesOptionsPage
 
   ],
   imports: [
@@ -48,7 +50,8 @@ import { RecipesService } from './../services/recipes.service';
     TabsPage,
     SigninPage,
     SignupPage,
-    SLOptionsPage
+    SLOptionsPage,
+    RecipesOptionsPage
   ],
   providers: [
     StatusBar,
