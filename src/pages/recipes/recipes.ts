@@ -45,7 +45,10 @@ export class RecipesPage {
     popover.present({ev: event});
     popover.onDidDismiss(
         data => {
-        if (data !== null && data.action == 'load') {
+          if (!data) {
+            return;
+          }
+        if ( data.action == 'load') {
           loading.present();
           this.authSrv.getActiveUser().getIdToken()
           .then(

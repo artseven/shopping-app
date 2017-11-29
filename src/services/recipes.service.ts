@@ -35,7 +35,7 @@ export class RecipesService {
 
 
   removeRecipe(index: number) {
-      this.recipes.splice(index, )
+      this.recipes.splice(index, 1);
   }
 
   storeList(token: string) {
@@ -49,7 +49,15 @@ export class RecipesService {
     const userId = this.authSrv.getActiveUser().uid;
     return this.http.get('https://ionic3-recipesbook.firebaseio.com/' + userId + '/recipes.json?auth=' + token)
     .map((response: Response) => {
-      return response.json();
+      // if response doesn't have ingredients, we set it to empty array
+      // and initialize it with empty value
+      const recipes: Recipe[] = response.json() ? response.json() : [];
+      for (let item of recipes) {
+        if (!item.hasOwnProperty('ingredients')) {
+          item.ingredients = [];
+        }
+      }
+      return recipes;
     })
     .do((recipes: Recipe[]) => {
       if (recipes) {
