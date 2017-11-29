@@ -6,7 +6,7 @@ import 'rxjs/Rx'
 @Injectable()
 export class ShoppingListService {
     private ingredients: Ingredient[] = [];
-    
+
     constructor(
         private http: Http,
         private authSrv: AuthService
@@ -42,7 +42,7 @@ export class ShoppingListService {
     }
 
     fetchList(token: String) {
-        const userId = this.authSrv.getActiveUser().uid;        
+        const userId = this.authSrv.getActiveUser().uid;
         return this.http
         .get('https://ionic3-recipesbook.firebaseio.com/' + userId + '/shopping-list.json?auth=' + token)
         .map((response) => {

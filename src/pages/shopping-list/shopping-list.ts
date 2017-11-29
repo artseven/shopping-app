@@ -1,8 +1,7 @@
 import { AuthService } from '../../services/auth';
-import { SLOptionsPage } from './sl-options/sl-options';
 import { AlertController, LoadingController, PopoverController } from 'ionic-angular';
 import { Ingredient } from './../../models/ingredient';
-
+import { DatabaseOptionsPage } from '../database-options/database-options'
 import { ShoppingListService } from './../../services/shopping-list.service';
 import { NgForm } from '@angular/forms/src/directives';
 import { Component } from '@angular/core';
@@ -44,7 +43,7 @@ export class ShoppingListPage {
     const loading = this.loadingCtrl.create({
       content: 'Please wait...'
     })
-    const popover = this.popoverCtrl.create(SLOptionsPage);
+    const popover = this.popoverCtrl.create(DatabaseOptionsPage);
     popover.present({ev: event});
     popover.onDidDismiss(
         data => {
@@ -65,7 +64,7 @@ export class ShoppingListPage {
                   },
                   error => {
                     loading.dismiss();
-                    this.handleError(error.message)
+                    this.handleError(error.json().error)
                   }
                 )
             }
@@ -80,7 +79,7 @@ export class ShoppingListPage {
                   ()=> loading.dismiss(),
                   error => {
                     loading.dismiss();
-                    this.handleError(error.message)
+                    this.handleError(error.json().error);
                   }
                 )
             }

@@ -1,10 +1,10 @@
 import { AuthService } from '../../services/auth';
-import { RecipesOptionsPage } from './recipes-options/recipes-options';
+import { DatabaseOptionsPage } from '../database-options/database-options';
 import { RecipePage } from '../recipe/recipe';
 import { RecipesService } from './../../services/recipes.service';
 import { Recipe } from './../../models/recipe';
 import { EditRecipePage } from './../edit-recipe/edit-recipe';
-import { LoadingController, NavController, PopoverController } from 'ionic-angular';
+import { AlertController, LoadingController, NavController, PopoverController } from 'ionic-angular';
 import { Component } from '@angular/core';
 
 @Component({
@@ -14,11 +14,12 @@ import { Component } from '@angular/core';
 export class RecipesPage {
   recipes: Recipe[];
   constructor(
-    private navCtrl: NavController,
+    private navCtrl:        NavController,
     private recipesService: RecipesService,
-    private loadingCtrl: LoadingController,
-    private popoverCtrl: PopoverController,
-    private authSrv: AuthService
+    private loadingCtrl:    LoadingController,
+    private popoverCtrl:    PopoverController,
+    private alertCtrl:      AlertController,
+    private authSrv:        AuthService
   ) {
   }
 
@@ -40,15 +41,62 @@ export class RecipesPage {
     const loading = this.loadingCtrl.create({
       content: 'Please wait...'
     })
-    const popover = this.popoverCtrl.create(RecipesOptionsPage);
+    const popover = this.popoverCtrl.create(DatabaseOptionsPage);
     popover.present({ev: event});
     popover.onDidDismiss(
-      data=> {
-        if (data.action == 'load') {
+        data => {
+        if (data !== null && data.action == 'load') {
           loading.present();
-          this.authSrv
+          this.authSrv.getActiveUser().getIdToken()
+          .then(
+            (token: string) => {
+              this.slService.fetchList(token)
+                .subscribe(
+                  (list: Ingredient[])=> {
+                    loading.dismiss();
+                    if (list) {
+                      this.listItems = list;
+                    } else {
+                      this.listItems = [];
+                    }
+                  },
+                  error => {
+                    loading.dismiss();
+                    this.handleError(error.json().error)
+                  }
+                )
+            }
+          );
+        } else if (data.action == 'store') {
+          loading.present();
+          this.authSrv.getActiveUser().getIdToken()
+          .then(
+            (token: string) => {
+              this.slService.storeList(token)
+                .subscribe(
+                  ()=> loading.dismiss(),
+                  error => {
+                    loading.dismiss();
+                    this.handleError(error.json().error);
+                  }
+                )
+            }
+          );
         }
-      })
+      }
+    )
+  }
+
+  private loadItems() {
+    this.listItems = this.slService.getItems();
+  }
+
+  private handleError(errorMessage: string) {
+    const alert = this.alertCtrl.create({
+      title: 'An error occurred!',
+      message: errorMessage,
+      buttons: ['Ok']
+    });
   }
 
 }
