@@ -25,20 +25,7 @@ export class MyApp {
     private menuCtrl: MenuController,
     private authService: AuthService
   ) {
-    platform.ready().then(() => {
-      firebase.initializeApp({
-          apiKey: "AIzaSyBrD8mO-WLn-fhnROXjGoX2yICPtUPUFCs",
-          authDomain: "ionic3-recipesbook.firebaseapp.com"
-      });
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          this.isAuthenticated = true;
-          this.nav.setRoot(this.tabsPage);
-        } else {
-          this.isAuthenticated = false;
-          this.nav.setRoot(this.signinPage);
-        }
-      })
+   
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
