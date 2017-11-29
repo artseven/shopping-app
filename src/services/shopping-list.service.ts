@@ -48,8 +48,12 @@ export class ShoppingListService {
         .map((response) => {
             return response.json();
         })
-        .do((data) => {
-            this.ingredients = data;
+        .do((ingredients: Ingredient[]) => {
+          if (ingredients) {
+            this.ingredients = ingredients;
+          } else {
+            this.ingredients = [];
+          }
         });
     }
 }
