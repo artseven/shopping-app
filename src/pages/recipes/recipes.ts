@@ -50,14 +50,14 @@ export class RecipesPage {
           this.authSrv.getActiveUser().getIdToken()
           .then(
             (token: string) => {
-              this.slService.fetchList(token)
+              this.recipesService.fetchList(token)
                 .subscribe(
-                  (list: Ingredient[])=> {
+                  (list: Recipe[])=> {
                     loading.dismiss();
                     if (list) {
-                      this.listItems = list;
+                      this.recipes = list;
                     } else {
-                      this.listItems = [];
+                      this.recipes = [];
                     }
                   },
                   error => {
@@ -72,7 +72,7 @@ export class RecipesPage {
           this.authSrv.getActiveUser().getIdToken()
           .then(
             (token: string) => {
-              this.slService.storeList(token)
+              this.recipesService.storeList(token)
                 .subscribe(
                   ()=> loading.dismiss(),
                   error => {
@@ -88,7 +88,7 @@ export class RecipesPage {
   }
 
   private loadItems() {
-    this.listItems = this.slService.getItems();
+    this.recipes = this.recipesService.getRecipes();
   }
 
   private handleError(errorMessage: string) {
